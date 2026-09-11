@@ -40,4 +40,6 @@ GA4 ID: `G-HXM22WWPKP`. The Google Analytics script is not loaded until the visi
 The page references real Wadi Namar photographs, not generated imagery. Image sources and reuse notes are in `SOURCES.md`. Because this execution environment cannot reach external hosts, the photo binaries could not be downloaded into `public/images`; the live source URLs remain in the page so the design still uses real photographs. Localize those files before production where reuse rights permit.
 
 ## Validation note for this delivered archive
-The execution environment used to assemble this archive cannot reach the npm registry or external image hosts. For that reason the network-dependent frozen install, Astro Check, production build, and image localization could not be truthfully completed here. `SELF_CHECK.md` records what was and was not verified.
+The frozen install, Astro Check and the production build have now been completed on a machine with registry access, after regenerating the stub `pnpm-lock.yaml` that was originally shipped. The photo binaries still could not be downloaded, so the page continues to reference the real source photographs remotely. `SELF_CHECK.md` records what was and was not verified.
+
+`node_modules/` had been committed without a `.gitignore`. It is not needed by the build (pnpm reinstalls from the lockfile), so `.gitignore` now excludes `node_modules/`, `dist/` and `.astro/`, and the previously committed `node_modules` files have been removed from the index (the local folder is untouched).
