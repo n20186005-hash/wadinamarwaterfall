@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101716"/><stop offset="1" stop-color="#273631"/></linearGradient>
+    <linearGradient id="r" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d4a36f"/><stop offset="1" stop-color="#75452d"/></linearGradient>
+    <linearGradient id="w" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d9f5ef"/><stop offset="1" stop-color="#4e8f8a"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M0 520C210 350 335 220 535 94c150 97 266 249 391 426H0Z" fill="url(#r)" opacity=".92"/>
+  <path d="M438 189c70 70 91 132 82 204-5 42-29 84-48 127h145c-33-67-59-113-48-177 8-52 28-93 49-128-67 26-123 16-180-26Z" fill="url(#w)"/>
+  <text x="1110" y="210" text-anchor="end" fill="#f7efe3" font-family="Tahoma,Arial,sans-serif" font-size="86" font-weight="700">شلال وادي نمار</text>
+  <text x="1110" y="292" text-anchor="end" fill="#c9f2ea" font-family="Tahoma,Arial,sans-serif" font-size="34">ماءٌ بين صخور الرياض</text>
+  <text x="1110" y="520" text-anchor="end" fill="#cabaa5" font-family="Tahoma,Arial,sans-serif" font-size="27">دليل زيارة مستقل • الرياض</text>
+</svg>

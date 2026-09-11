@@ -1,0 +1,270 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'شلال وادي نمار | دليل زيارة وادي نمار في الرياض';
+const description = 'دليل عربي مستقل لزيارة شلال وادي نمار في الرياض: أفضل وقت، المواقف، الوصول، التكلفة، المطاعم والأماكن القريبة، مع خريطة الموقع.';
+
+const placeUrl = Astro.site ? new URL('/', Astro.site).toString() : undefined;
+const imageUrl = Astro.site ? new URL('/social-card.svg', Astro.site).toString() : undefined;
+
+const attraction = {
+  '@type': ['TouristAttraction', 'Park'],
+  name: 'شلال وادي نمار',
+  alternateName: 'Wadi Namar Waterfall',
+  description,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '7010 علي بن أبي نصر، حي نمار',
+    addressLocality: 'الرياض',
+    postalCode: '14962',
+    addressCountry: 'SA'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 24.571994478027502,
+    longitude: 46.67715381272663
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: 4.5,
+    reviewCount: 17231,
+    bestRating: 5
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+      opens: '00:00',
+      closes: '23:59'
+    }
+  ],
+  isAccessibleForFree: true,
+  ...(placeUrl ? { url: placeUrl } : {}),
+  ...(imageUrl ? { image: imageUrl } : {})
+};
+
+const faqs = [
+  { q: 'هل دخول شلال وادي نمار مجاني؟', a: 'نعم، وفق دليل السياحة السعودية لا تحتاج إلى تذكرة لدخول وادي نمار. قد تكون بعض المأكولات أو الخدمات الخاصة مدفوعة.' },
+  { q: 'ما أفضل وقت لزيارة وادي نمار؟', a: 'الأجواء الألطف تكون في الأشهر الباردة، أما في الأيام الحارة فالأفضل الاقتراب من الغروب أو الزيارة مساءً. العطلات الأسبوعية عادةً أكثر ازدحاماً.' },
+  { q: 'كم أحتاج من الوقت في الموقع؟', a: 'للمشي والتصوير ومشاهدة الشلال تكفي عادةً زيارة قصيرة إلى متوسطة؛ وإذا خططت للجلوس قرب البحيرة أو نزهة عائلية فخصص وقتاً أطول.' },
+  { q: 'هل توجد مواقف سيارات؟', a: 'نعم، تتوفر مواقف على امتداد منطقة المتنزه. في أوقات الذروة قد يزداد الازدحام، لذا يفيد الوصول قبل الفترة المسائية المزدحمة.' },
+  { q: 'هل المكان مناسب للعائلات؟', a: 'المتنزه معروف كوجهة عائلية، ويضم ممشى ومناطق جلوس ومرافق وخيارات طعام وأماكن لعب للأطفال. يجب مراقبة الأطفال قرب المياه والحواف الصخرية.' },
+  { q: 'هل يعمل الشلال دائماً؟', a: 'قد يختلف تدفق المياه أو تشغيل المشهد المائي بحسب الظروف والتشغيل والصيانة؛ لذلك لا يُنصح ببناء الزيارة على توقيت تشغيل دقيق غير معلن رسمياً.' }
+];
+
+const faqLd = {
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a }
+  }))
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [attraction, faqLd]
+};
+---
+<BaseLayout {title} {description} {jsonLd}>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="العودة إلى بداية الصفحة"><img src="/logo.svg" alt="شلال وادي نمار" /></a>
+      <nav class="nav" aria-label="التنقل الرئيسي">
+        <a href="#experience">التجربة</a>
+        <a href="#visit">خطط للزيارة</a>
+        <a href="#nearby">حول الوادي</a>
+        <a href="#map" class="nav-cta">الخريطة</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-content">
+        <div>
+          <p class="eyebrow">الرياض · حي نمار</p>
+          <h1 id="hero-title">ماءٌ بين صخور الرياض</h1>
+          <p class="hero-sub">شلال ينساب على حافة الوادي، وبحيرة تمتد بمحاذاة ممشى طويل ونخيل وجلسات مفتوحة. وادي نمار ليس محطة مشاهدة سريعة فقط؛ بل مساحة هادئة للمشي والغروب واللقاءات العائلية.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#visit">خطّط زيارتك</a>
+            <a class="btn" href="#map">افتح الخريطة داخل الصفحة</a>
+          </div>
+        </div>
+        <aside class="hero-card glass" aria-label="ملخص سريع">
+          <div class="rating"><strong>4.5</strong><span>★</span></div>
+          <small>من 17,231 مراجعة بحسب البيانات المقدمة</small>
+          <div class="hero-meta">
+            <div class="meta-row"><span>الدخول</span><b>بدون تذكرة</b></div>
+            <div class="meta-row"><span>الطابع</span><b>بحيرة · شلال · ممشى</b></div>
+            <div class="meta-row"><span>أنسب زيارة</span><b>قرب الغروب والمساء</b></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="fact-strip">
+      <div class="container facts" aria-label="حقائق عن وادي نمار">
+        <div class="fact"><b>2 كم تقريباً</b><span>واجهة البحيرة والكورنيش</span></div>
+        <div class="fact"><b>200 ألف م²</b><span>مساحة بحيرة سد وادي نمار</span></div>
+        <div class="fact"><b>مواقف متاحة</b><span>مع ازدحام محتمل في الذروة</span></div>
+        <div class="fact"><b>مناسب للعائلة</b><span>جلسات وممشى ومرافق</span></div>
+      </div>
+    </div>
+
+    <section class="section" id="experience">
+      <div class="container story-grid">
+        <div class="photo-stack" aria-label="صور حقيقية من وادي نمار">
+          <figure class="photo-main">
+            <img src="https://portalcdn.spa.gov.sa/backend/original/202401/JOnGEBSzMDqHwa3jRjqLrQWpoOWCJGx2CvT5upMo.jpg" alt="شلال وادي نمار ينعكس على البحيرة" loading="lazy" referrerpolicy="no-referrer" />
+            <figcaption class="photo-credit">صورة حقيقية: وكالة الأنباء السعودية</figcaption>
+          </figure>
+          <figure class="photo-night">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/%D8%A8%D8%AD%D9%8A%D8%B1%D8%A9_%D9%86%D9%85%D8%A7%D8%B1_%D8%A8%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6_%D9%84%D9%8A%D9%84%D8%A7%D9%8B.jpg" alt="بحيرة نمار ليلاً وانعكاس الإضاءة على الماء" loading="lazy" />
+            <figcaption class="photo-credit">JeedaGhazal · CC BY-SA 4.0</figcaption>
+          </figure>
+        </div>
+        <div>
+          <p class="eyebrow">تجربة المكان</p>
+          <h2 class="section-title">الوادي يتغيّر مع الضوء</h2>
+          <p class="lead">في النهار تبدو طبقات الصخر واضحة حول الماء، ثم يتحول المشهد تدريجياً مع اقتراب الغروب إلى انعكاسات هادئة على البحيرة وإضاءة تمتد بطول المسار.</p>
+          <div class="story-points">
+            <div class="story-point"><div class="num">01</div><div><h3>ابدأ من الشلال</h3><p>أفضل نقطة لفهم المشهد: صخر مرتفع، ماء هابط، ثم بحيرة طويلة تتجه عبر الوادي.</p></div></div>
+            <div class="story-point"><div class="num">02</div><div><h3>امشِ بمحاذاة البحيرة</h3><p>الممرات والجلسات والنخيل تجعل الزيارة سهلة حتى لمن لا يبحث عن مسار جبلي أو نشاط شاق.</p></div></div>
+            <div class="story-point"><div class="num">03</div><div><h3>اترك الغروب للنهاية</h3><p>الضوء المنخفض يبرز ألوان الصخر ويخفف حرارة النهار، وهو الوقت المفضل لكثير من الزوار للمشي والتصوير.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section plan" id="visit">
+      <div class="container">
+        <p class="eyebrow">قبل أن تتحرك</p>
+        <h2 class="section-title">خطة زيارة بلا مفاجآت</h2>
+        <p class="lead">المكان مفتوح بطبيعته ومرن، لكن الحرارة وازدحام نهاية الأسبوع هما العاملان اللذان يصنعان الفرق الأكبر في التجربة.</p>
+        <div class="plan-grid">
+          <article class="info-card glass"><div class="info-icon">◌</div><h3>التذاكر والتكلفة</h3><p><strong>الدخول مجاني ولا يحتاج إلى تذكرة</strong> وفق دليل السياحة السعودية. احسب فقط تكلفة النقل وما تشتريه من أكشاك أو مطاعم.</p></article>
+          <article class="info-card glass"><div class="info-icon">P</div><h3>مواقف السيارات</h3><p>توجد مواقف على امتداد منطقة المتنزه. في المساء وعطلة نهاية الأسبوع قد يبطؤ الدخول والخروج؛ الوصول أبكر يمنحك اختياراً أفضل.</p></article>
+          <article class="info-card glass"><div class="info-icon">☾</div><h3>أفضل وقت</h3><p>الأشهر الأبرد هي الأسهل للمشي. في الحر اختر <strong>ما قبل الغروب أو المساء</strong> وتجنب الشمس القوية منتصف النهار.</p></article>
+          <article class="info-card glass"><div class="info-icon">⌛</div><h3>مدة الزيارة</h3><p>للتصوير والمشي الخفيف خصص نحو <strong>ساعة إلى ساعتين</strong>. للنزهة العائلية والجلوس قرب الماء يمكنك البقاء أطول حسب الطقس.</p></article>
+          <article class="info-card glass"><div class="info-icon">↝</div><h3>ساعات الوصول</h3><p>الإدراج الحالي للموقع يشير إلى الوصول على مدار الساعة، لكن تشغيل بعض المرافق أو تدفق الشلال قد يتغير بحسب التشغيل والصيانة.</p></article>
+          <article class="info-card glass"><div class="info-icon">△</div><h3>السلامة والطقس</h3><p>ابتعد عن الحواف الصخرية ومجرى السيول وقت الأمطار، وراقب الأطفال قرب المياه. خذ ماءً كافياً في الأيام الحارة.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="transport">
+      <div class="container">
+        <p class="eyebrow">الوصول بالتفصيل</p>
+        <h2 class="section-title">السيارة هي الخيار الأبسط</h2>
+        <div class="route-grid">
+          <div class="route-list">
+            <div class="route-item"><div class="route-no">1</div><div><h3>من وسط الرياض</h3><p>اتجه جنوباً نحو حي نمار ثم استخدم الملاحة إلى «شلال وادي نمار». تجنب تثبيت مسار واحد في ذهنك لأن التحويلات المرورية قد تتغير.</p></div></div>
+            <div class="route-item"><div class="route-no">2</div><div><h3>تطبيقات النقل</h3><p>أوبر وكريم وسيارات الأجرة مناسبة إذا كنت لا تريد التعامل مع المواقف. عند العودة، اطلب المركبة من نقطة واضحة بعيداً عن تجمع السيارات.</p></div></div>
+            <div class="route-item"><div class="route-no">3</div><div><h3>النقل العام</h3><p>لا تعتمد على المترو وحده للوصول إلى الشلال؛ خطط للجزء الأخير بسيارة أجرة أو تطبيق نقل، وتحقق من شبكة النقل الحالية قبل المغادرة.</p></div></div>
+            <div class="route-item"><div class="route-no">4</div><div><h3>العنوان للملاحة</h3><p>7010 علي بن أبي نصر، حي نمار، الرياض 14962. رمز الموقع: <span dir="ltr">HMCH+QV</span>.</p></div></div>
+          </div>
+          <div class="route-note glass">
+            <span class="pill">نصيحة نهاية الأسبوع</span>
+            <h3>لا تجعل موقف السيارة آخر قرار في رحلتك</h3>
+            <p>إذا كان هدفك الغروب، حاول الوصول قبل ذروة المساء بوقت كافٍ. المشي الإضافي القصير غالباً أفضل من الانتظار وسط ازدحام المداخل.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section plan" id="nearby">
+      <div class="container">
+        <p class="eyebrow">حول وادي نمار</p>
+        <h2 class="section-title">أكمل المساء حول الوادي</h2>
+        <p class="lead">خيارات عملية قريبة نسبياً، من وجبة سعودية بعد المشي إلى نقطة إطلالة أو مسار دراجات ضمن نفس منطقة نمار.</p>
+        <div class="nearby-grid">
+          <div class="nearby-group glass">
+            <h3>أكل وقهوة قريبان</h3>
+            <div class="place-list">
+              <div class="place"><div><b>الرومانسية – فرع نمار</b><small>أطباق سعودية وأرز ولحوم · طريق ديراب</small></div><span>وجبة كاملة</span></div>
+              <div class="place"><div><b>شاورمر – نمار</b><small>شاورما ووجبات سريعة مناسبة بعد المشي</small></div><span>سريع</span></div>
+              <div class="place"><div><b>د.كيف – نمار</b><small>قهوة وحلويات وخيار مناسب للعودة المتأخرة</small></div><span>قهوة</span></div>
+              <div class="place"><div><b>ON OFF Coffee – نمار</b><small>قهوة وحلويات وجلسات اجتماعية</small></div><span>جلسة</span></div>
+            </div>
+          </div>
+          <div class="nearby-group glass">
+            <h3>أماكن قريبة</h3>
+            <div class="place-list">
+              <div class="place"><div><b>بحيرة وادي نمار</b><small>امتداد المشهد المائي والكورنيش حول السد</small></div><span>داخل المنطقة</span></div>
+              <div class="place"><div><b>مطل وادي نمار</b><small>نظرة أوسع على الوادي والبحيرة من الأعلى</small></div><span>إطلالة</span></div>
+              <div class="place"><div><b>مسار دراجات وادي نمار</b><small>مسار سهل نسبياً بمحاذاة منطقة البحيرة</small></div><span>نشاط</span></div>
+              <div class="place"><div><b>حديقة السويدي</b><small>حديقة حضرية جنوب الرياض وخيار إضافي للعائلات</small></div><span>قريب بالسيارة</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="map">
+      <div class="container">
+        <p class="eyebrow">الموقع</p>
+        <h2 class="section-title">الشلال على الخريطة</h2>
+        <div class="map-wrap">
+          <iframe title="خريطة شلال وادي نمار" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6453.813335375619!2d46.67715381272663!3d24.571994478027502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f0fdcb635dd23%3A0x3cef8838071be1f4!2sWadi%20Namar%20Waterfall!5e1!3m2!1sar!2ssa!4v1789090627470!5m2!1sar!2ssa&hl=ar&region=SA" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="map-caption"><p>حي نمار، جنوب الرياض · استخدم نقطة الشلال نفسها عند طلب سيارة أو مشاركة الموقع.</p><code>24.571994, 46.677154</code></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <p class="eyebrow">أسئلة شائعة</p>
+        <h2 class="section-title">قبل أن تسأل الخريطة</h2>
+        <div class="faq">
+          {faqs.map((item) => (
+            <details>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <img class="footer-logo" src="/logo.svg" alt="شلال وادي نمار" />
+        <div class="footer-links" aria-label="روابط الخصوصية">
+          <button class="link-button" data-dialog-open="privacy-dialog">الخصوصية</button>
+          <button class="link-button" data-dialog-open="terms-dialog">شروط الاستخدام</button>
+          <button class="link-button" data-dialog-open="cookies-dialog">ملفات الارتباط</button>
+          <button class="link-button" data-consent="settings">إعدادات التحليلات</button>
+        </div>
+      </div>
+      <p class="disclaimer">هذا موقع إرشادي مستقل وغير رسمي، ولا يتبع أمانة منطقة الرياض أو الهيئة السعودية للسياحة أو أي جهة حكومية أو مشغل للموقع.</p>
+    </div>
+  </footer>
+
+  <div class="consent glass" id="analytics-consent" role="dialog" aria-live="polite" aria-label="إذن التحليلات">
+    <h2>تحليلات اختيارية</h2>
+    <p>نستخدم Google Analytics 4 فقط إذا وافقت. لا يتم تحميل سكربت التحليلات قبل الموافقة، ويمكنك تغيير اختيارك من أسفل الصفحة.</p>
+    <div class="consent-actions"><button class="accept" data-consent="accept">موافق</button><button data-consent="reject">رفض</button></div>
+  </div>
+
+  <dialog id="privacy-dialog">
+    <div class="dialog-inner">
+      <div class="dialog-head"><h2>الخصوصية</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
+      <p>لا يتطلب الموقع حساباً أو تسجيل دخول ولا يجمع بيانات شخصية عبر نماذج. يتم تفعيل Google Analytics 4 فقط بعد موافقتك. قد ترسل الخرائط والصور الخارجية بيانات تقنية أساسية إلى مزوديها عند تحميلها.</p>
+    </div>
+  </dialog>
+  <dialog id="terms-dialog">
+    <div class="dialog-inner">
+      <div class="dialog-head"><h2>شروط الاستخدام</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
+      <p>المعلومات هنا للإرشاد العام وليست بياناً رسمياً. قد تتغير ساعات الوصول أو المرافق أو حالة الشلال أو الطرق. تحقّق من المصادر الرسمية والظروف المحلية قبل الزيارة، واتبع تعليمات السلامة في الموقع.</p>
+    </div>
+  </dialog>
+  <dialog id="cookies-dialog">
+    <div class="dialog-inner">
+      <div class="dialog-head"><h2>ملفات الارتباط والتحليلات</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
+      <p>يحفظ الموقع اختيارك للتحليلات محلياً في المتصفح. عند الموافقة يتم تحميل Google Analytics 4 بالمعرّف المخصص للموقع. عند الرفض لا يتم تحميل سكربت GA4.</p>
+    </div>
+  </dialog>
+</BaseLayout>
