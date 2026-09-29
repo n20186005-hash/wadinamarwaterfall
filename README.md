@@ -11,12 +11,9 @@ Arabic-only, RTL, single-page visitor guide for شلال وادي نمار in Ri
 - Cloudflare Workers static asset deployment via Wrangler 4.130.0
 
 ## Domain configuration — one place only
-Edit only `astro.config.mjs` and replace the empty `SITE` string with the final HTTPS origin after the domain has been registered.
+`SITE` is set to `https://wadinamarwaterfall.com`. All absolute SEO URLs (canonical, Open Graph, sitemap) derive from `Astro.site`.
 
-All absolute SEO URLs derive from `Astro.site`. When `SITE` is empty:
-- canonical and absolute Open Graph URL/image are omitted;
-- `@astrojs/sitemap` is not enabled;
-- no fallback or placeholder hostname is injected.
+`public/_redirects` normalizes `http`→`https` and `www`→apex (301) to consolidate link equity, and `public/_headers` issues HSTS. Combine with Cloudflare "Always Use HTTPS" at the edge.
 
 ## Required clean-environment validation
 After the final domain is configured and dependencies can be reached from the npm registry:
