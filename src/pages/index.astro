@@ -227,7 +227,7 @@ const jsonLd = {
 
   <div class="consent glass" id="analytics-consent" role="dialog" aria-live="polite" aria-label="إذن التحليلات">
     <h2>تحليلات اختيارية</h2>
-    <p>نستخدم Google Analytics 4 فقط إذا وافقت. لا يتم تحميل سكربت التحليلات قبل الموافقة، ويمكنك تغيير اختيارك من أسفل الصفحة.</p>
+    <p>نستخدم Google Analytics 4 فقط إذا وافقت، ويمكنك تغيير اختيارك من أسفل الصفحة. يخص هذا الاختيار GA وحده ولا يتحكم بقياس أداء Cloudflare المستقل؛ التفاصيل في الخصوصية.</p>
     <p id="consent-status" role="status"></p><div class="consent-actions"><button class="accept" data-consent="accept">موافق</button><button data-consent="reject">رفض</button><button data-consent="close">إغلاق</button></div>
   </div>
 
@@ -235,6 +235,7 @@ const jsonLd = {
     <div class="dialog-inner">
       <div class="dialog-head"><h2>الخصوصية</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
       <p>لا يتطلب الموقع حساباً أو تسجيل دخول ولا يجمع بيانات شخصية عبر نماذج. يتم تفعيل Google Analytics 4 فقط بعد موافقتك. قد ترسل خرائط Google بيانات تقنية إلى مزودها عند تحميلها. الرسم التوضيحي يُحمّل من هذا الموقع.</p>
+      <p>تستضيف Cloudflare هذا الموقع، وقد تضيف أداة مستقلة لقياس الأداء مثل <span dir="ltr">beacon.min.js</span> وترسل بيانات تقنية عن تحميل الصفحة وأزمنة الاتصال إلى Cloudflare. هذه الأداة ليست Google Analytics، ولا تتحكم بها أزرار الموافقة أو الرفض الخاصة بـ GA في هذه الصفحة؛ رفض GA لا يعني إيقاف قياس الأداء لدى مزود الاستضافة. راجع <a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/" target="_blank" rel="noopener noreferrer">شرح Cloudflare لجمع بيانات الأداء</a>.</p>
     </div>
   </dialog>
   <dialog id="terms-dialog">
