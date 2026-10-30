@@ -1,42 +1,17 @@
-# Wadi Namar Waterfall — Astro single-page site
+# Wadi Namar Waterfall visitor guide
 
-Arabic-only, RTL, single-page visitor guide for شلال وادي نمار in Riyadh.
+Existing Arabic RTL static Astro single-page architecture retained, plus a genuine noindex error page. Independent nonprofit tourism and public education information, not an official operator or registered-charity claim.
 
-## Stack
-- Astro 7.3.2
-- Tailwind CSS 4.3.3 via `@tailwindcss/vite`
-- TypeScript 6.0.3 (kept on the Astro Check-compatible 6.x line)
-- pnpm 12.4.0
-- Node.js 24.21.0 LTS
-- Cloudflare Workers static asset deployment via Wrangler 4.130.0
+Exact existing stack: Node 24.21.0, pnpm 12.4.0, Astro 7.3.2, Tailwind 4.3.3, TypeScript 6.0.3, Wrangler 4.130.0. Package versions, lockfile and narrow esbuild/workerd build permissions retained.
 
-## Domain configuration — one place only
-`SITE` is set to `https://wadinamarwaterfall.com`. All absolute SEO URLs (canonical, Open Graph, sitemap) derive from `Astro.site`.
+Validation commands: `pnpm install --frozen-lockfile`, `pnpm check`, `pnpm run build`, `node scripts/preflight.mjs`, `npx wrangler deploy --dry-run`.
 
-`public/_redirects` normalizes `http`→`https` and `www`→apex (301) to consolidate link equity, and `public/_headers` issues HSTS. Combine with Cloudflare "Always Use HTTPS" at the edge.
+Source project name is wadinamarwaterfall. Small Worker runs before ASSETS for path/query-preserving HTTP/www canonical redirects and real 404 responses. No hosting/domain/security settings changed.
 
-## Required clean-environment validation
-After the final domain is configured and dependencies can be reached from the npm registry:
+Maps information is dated and third-party. A 24-hour listing does not prove current access, facilities or waterfall flow. Current official fees were not independently confirmed; no free/paid admission promise. Public sources and their applicability are described on the page.
 
-```bash
-rm -rf node_modules dist
-corepack enable
-CI=1 corepack pnpm install --frozen-lockfile
-pnpm check
-pnpm build
-node scripts/preflight.mjs
-```
+Original abstract water SVG replaces photographs whose permission/source identity could not be established. It is not a site photograph or current-condition depiction. Served source and CC0 links included.
 
-## Cloudflare Workers
-This is an entirely pre-rendered site, so it is deployed as Worker static assets. `wrangler.jsonc` points `assets.directory` to `./dist`.
+Existing optional Google Analytics controls now apply runtime denial to a loaded library, verify persistence, report failed storage accurately, and handle cross-tab key changes. Retained script/storage fault fixtures do not replace real browser consent/reload acceptance. Google Maps loads independently; optional analytics controls do not control it.
 
-## Analytics
-GA4 ID: `G-HXM22WWPKP`. The Google Analytics script is not loaded until the visitor explicitly accepts analytics.
-
-## Photographs
-The page references real Wadi Namar photographs, not generated imagery. Image sources and reuse notes are in `SOURCES.md`. Because this execution environment cannot reach external hosts, the photo binaries could not be downloaded into `public/images`; the live source URLs remain in the page so the design still uses real photographs. Localize those files before production where reuse rights permit.
-
-## Validation note for this delivered archive
-The frozen install, Astro Check and the production build have now been completed on a machine with registry access, after regenerating the stub `pnpm-lock.yaml` that was originally shipped. The photo binaries still could not be downloaded, so the page continues to reference the real source photographs remotely. `SELF_CHECK.md` records what was and was not verified.
-
-`node_modules/` had been committed without a `.gitignore`. It is not needed by the build (pnpm reinstalls from the lockfile), so `.gitignore` now excludes `node_modules/`, `dist/` and `.astro/`, and the previously committed `node_modules` files have been removed from the index (the local folder is untouched).
+Local checks do not establish official exact-commit deployment, browser layout, native production redirects or production completion.

@@ -1,25 +1,7 @@
-Wadi Namar real-photo download map
-==================================
+Visual sources and scope
 
-1) wadi-namar-spa-waterfall.jpg
-Source: Saudi Press Agency
-Original URL:
-https://portalcdn.spa.gov.sa/backend/original/202401/JOnGEBSzMDqHwa3jRjqLrQWpoOWCJGx2CvT5upMo.jpg
-Note: editorial/source image; verify redistribution rights before bundling a local copy.
+Current image: original geometric water-illustration.svg, created for this independent guide under CC0. Not a photograph or a depiction of the waterfall or its operating state. Source /images/water-illustration.svg; licence https://creativecommons.org/publicdomain/zero/1.0/ . Responsive presentation may crop it.
 
-2) wadi-namar-promenade.jpg
-Source: Al Riyadh newspaper
-Original URL:
-https://www.alriyadh.com/media/article/2020/10/14/img/5771179361.jpg
-Note: editorial/source image; verify redistribution rights before bundling a local copy.
+Former newspaper/press images and unverified local photo mappings were removed because reuse permission/source identity was not established. Removal does not clear underlying rights or allege infringement.
 
-3) wadi-namar-night.jpg
-Author: JeedaGhazal
-License: CC BY-SA 4.0
-Original URL:
-https://upload.wikimedia.org/wikipedia/commons/9/96/%D8%A8%D8%AD%D9%8A%D8%B1%D8%A9_%D9%86%D9%85%D8%A7%D8%B1_%D8%A8%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6_%D9%84%D9%8A%D9%84%D8%A7%D9%8B.jpg
-File page:
-https://commons.wikimedia.org/wiki/File:%D8%A8%D8%AD%D9%8A%D8%B1%D8%A9_%D9%86%D9%85%D8%A7%D8%B1_%D8%A8%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6_%D9%84%D9%8A%D9%84%D8%A7%D9%8B.jpg
-
-The current site source references the live originals so real photography remains visible.
-The execution environment that assembled this archive had no outbound network access, so these JPG binaries were not fabricated or replaced by placeholders.
+Visitor references checked29October2026: https://maps.app.goo.gl/sZTUMNDCSZH3b3VB6 ; https://www.rcrc.gov.sa/projects/ ; https://www.visitsaudi.com/ar/riyadh/attractions/wadi-namar . The accessible RCRC project index supports project identity only; underlying project pages/PDF were rejected by the server and VisitSaudi exposed no readable operational content. No current official fee or complete operating schedule was independently established.

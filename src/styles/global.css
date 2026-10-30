@@ -52,7 +52,7 @@ img { display:block; width:100%; }
   content:""; position:absolute; inset:0; background:
     linear-gradient(180deg, rgba(8,13,12,.2) 0%, rgba(8,13,12,.23) 30%, rgba(8,13,12,.92) 90%),
     linear-gradient(90deg, rgba(11,17,15,.7), transparent 58%),
-    url("https://portalcdn.spa.gov.sa/backend/original/202607/M10471902.jpeg") center/cover no-repeat;
+    url("/images/water-illustration.svg") center/cover no-repeat;
   transform:scale(1.02);
 }
 .hero::after {
@@ -61,7 +61,7 @@ img { display:block; width:100%; }
   transform:rotate(-6deg); border-radius:50%; pointer-events:none;
 }
 .hero-content { position:relative; z-index:2; display:grid; grid-template-columns:minmax(0,1.25fr) minmax(270px,.55fr); gap:44px; align-items:end; }
-.hero h1 { margin:.4rem 0 1rem; max-width:10ch; font-size:clamp(3.5rem, 9.2vw, 8.5rem); line-height:.96; letter-spacing:-.055em; text-wrap:balance; }
+.hero h1 { margin:.4rem 0 1rem; max-width:10ch; font-size:clamp(3.5rem, 9.2vw, 8.5rem); line-height:1.2; letter-spacing:-.055em; text-wrap:balance; }
 .hero-sub { max-width:56ch; font-size:clamp(1rem,1.6vw,1.24rem); color:#e7ddd1; }
 .hero-actions { display:flex; gap:12px; margin-top:30px; flex-wrap:wrap; }
 .btn { display:inline-flex; align-items:center; justify-content:center; gap:.55rem; min-height:48px; padding:.7rem 1.15rem; border-radius:999px; text-decoration:none; border:1px solid var(--line); background:rgba(16,24,22,.48); }
@@ -111,7 +111,7 @@ img { display:block; width:100%; }
 .route-item p { margin:0; color:var(--muted); }
 .route-note { border-radius:30px; min-height:430px; padding:34px; display:flex; flex-direction:column; justify-content:end; background:
   linear-gradient(180deg, rgba(17,24,23,.04), rgba(17,24,23,.86)),
-  url("https://www.alriyadh.com/media/article/2020/10/14/img/5771179361.jpg") center/cover no-repeat; }
+  url("/images/water-illustration.svg") center/cover no-repeat; }
 .route-note .pill { align-self:flex-start; border-radius:999px; padding:6px 11px; background:rgba(10,15,14,.7); border:1px solid var(--line); font-size:.78rem; }
 .route-note p { max-width:34ch; }
 
@@ -193,3 +193,7 @@ dialog p, dialog li { color:var(--muted); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior:auto!important; transition:none!important; }
 }
+
+.illustration { margin: 0; min-width: 0; }
+.illustration figcaption { margin-top: 1rem; color: var(--muted); }
+@media (max-width: 900px) { .header-inner { flex-wrap: wrap; } .nav { flex-wrap: wrap; width: 100%; } .nav a:not(.nav-cta) { display: inline; } .hero { padding-top: 200px; } }

@@ -1,39 +1,9 @@
-# Delivery self-check status
+# Local verification scope
 
-## Verified locally in the assembly environment
-- `package.json` is valid JSON and all direct dependency versions are exact.
-- `.node-version` and `engines.node` agree.
-- `packageManager` and `engines.pnpm` agree.
-- `pnpm-workspace.yaml` contains only `allowBuilds` entries (`esbuild`, `workerd`) and defines no workspace packages, so the project remains single-package.
-- Website UI is Arabic-only / RTL; the supplied Google Maps embed uses Arabic + Saudi Arabia parameters.
-- Logo, favicon SVG, favicon 16/32 and 180px Apple icon are present and use the same visual system.
-- Local JavaScript syntax check passes.
-- SVG/XML assets parse successfully.
-- Source scan contains none of the forbidden placeholder/protocol strings targeted by the production preflight.
-- No hand-authored sitemap file is present. Sitemap is conditionally enabled only when `Astro.site` has a real value.
+Normal frozen install from new node_modules passed with exact Node 24.21.0 / pnpm 12.4.0 and the existing lockfile/build policy. Warm package store reused; not a cold Linux native-script audit.
 
-## Not possible to verify in this environment
-The current execution environment cannot make outbound connections to the npm registry or the remote image hosts. Therefore these mandatory network-dependent steps could not be executed successfully here:
+Astro check: 0 errors, warnings and hints. Build: homepage and noindex404. Production preflight and pinned default Wrangler dry-run pass. Public source/client JavaScript and generated output are inspected separately from browser interaction.
 
-```bash
-rm -rf node_modules dist
-CI=1 corepack pnpm install --frozen-lockfile
-pnpm check
-pnpm build
-node scripts/preflight.mjs
-```
+The coordinator’s historical Cloudflare log shows a successful build followed by deployment failure on absolute _redirects source URLs [100324]. Current source removes those unsupported rules, names the actual project and handles host/protocol redirects in the Worker. This is not an assertion of a successful later deployment.
 
-The photo binaries also could not be downloaded into the archive. The site therefore references real source photographs remotely; see `SOURCES.md`.
-
-## Lockfile status
-The originally shipped `pnpm-lock.yaml` was a stub: it listed the direct importer pins but contained no resolved `packages`/`snapshots` entries and no `packageManagerDependencies` section. pnpm 12 therefore aborted the Cloudflare build with `ERR_PNPM_FROZEN_LOCKFILE_WITH_OUTDATED_LOCKFILE`.
-
-The lockfile has since been regenerated against the registry with pnpm 12.4.0 and now contains the full resolution in both lockfile documents (package-manager dependencies and project dependencies). `pnpm-workspace.yaml` records the `allowBuilds` approvals for `esbuild` and `workerd`, which pnpm 12 requires in order to run their postinstall scripts instead of failing with `ERR_PNPM_IGNORED_BUILDS`.
-
-Verified after regeneration, in order:
-- `pnpm install --frozen-lockfile` — passes with an empty `node_modules`.
-- `pnpm check` — 0 errors, 0 warnings, 2 hints.
-- `pnpm build` — 1 page built.
-- `scripts/preflight.mjs` — its checks were reproduced manually against `dist`: no `example.com` / `localhost` / `chrome-extension://` matches and no sitemap file present, so it passes.
-
-`scripts/preflight.mjs` itself cannot be executed on Windows: line 4 uses `new URL('..', import.meta.url).pathname`, which yields `/C:/...` and makes the `dist` existence check fail with "Production output is missing". On Linux (the Cloudflare build image) the same line is correct.
+Final independent review, real responsive browser/RTL/navigation/image/dialog/consent observations, storage reload behavior and official production checks remain required.
