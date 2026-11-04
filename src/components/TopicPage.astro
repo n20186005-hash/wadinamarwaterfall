@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { TOPICS, type Topic } from '../data/topics';
+
+interface Props {
+  topic: Topic;
+}
+const { topic } = Astro.props;
+
+const root = Astro.site ? new URL('/', Astro.site).toString() : 'https://wadinamarwaterfall.com/';
+const attractionId = root + '#attraction';
+const url = Astro.site ? new URL(`/${topic.slug}/`, Astro.site).toString() : undefined;
+
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: root },
+    { '@type': 'ListItem', position: 2, name: topic.h1, item: url }
+  ]
+};
+
+const faqLd = {
+  '@type': 'FAQPage',
+  mainEntity: topic.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a }
+  }))
+};
+
+const webPage = {
+  '@type': 'WebPage',
+  '@id': url,
+  url,
+  name: topic.h1,
+  description: topic.metaDescription,
+  inLanguage: 'ar-SA',
+  isPartOf: { '@type': 'WebSite', name: 'شلال وادي نمار', url: root },
+  about: { '@type': 'TouristAttraction', '@id': attractionId, name: 'شلال وادي نمار' },
+  breadcrumb
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [webPage, faqLd]
+};
+
+const related = topic.related.map((slug) => TOPICS.find((t) => t.slug === slug)).filter((t): t is Topic => Boolean(t));
+---
+
+<BaseLayout title={topic.metaTitle} description={topic.metaDescription} canonicalPath={`/${topic.slug}/`} jsonLd={jsonLd}>
+  <SiteHeader />
+  <main id="top">
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="مسار التنقل">
+          <a href="/">الرئيسية</a>
+          <span aria-hidden="true">/</span>
+          <span>{topic.h1}</span>
+        </nav>
+        <h1>{topic.h1}</h1>
+        <p class="lead">{topic.lead}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container article-grid">
+        <article class="article-card glass">
+          {topic.sections.map((section) => (
+            <div class="topic-section">
+              <h2>{section.heading}</h2>
+              {section.paragraphs?.map((p) => <p>{p}</p>)}
+              {section.bullets && (
+                <ul>
+                  {section.bullets.map((b) => <li>{b}</li>)}
+                </ul>
+              )}
+            </div>
+          ))}
+
+          <div class="faq">
+            <p class="eyebrow">أسئلة شائعة</p>
+            {topic.faqs.map((f) => (
+              <details>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </article>
+
+        <aside class="article-card glass">
+          <h2>اقرأ أيضاً</h2>
+          <div class="inline-links">
+            {related.map((t) => <a href={`/${t.slug}/`}>{t.h1}</a>)}
+          </div>
+          <p class="updated-note">آخر مراجعة: {topic.updated}</p>
+          <div class="inline-links"><a href="/#sources">المصادر ونطاق التحقق</a></div>
+          <p class="disclaimer">هذا دليل مستقل وغير ربحي ولا يتبع أي جهة حكومية أو مشغل للموقع.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

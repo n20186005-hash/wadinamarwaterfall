@@ -1,0 +1,23 @@
+---
+import { TOPIC_GROUP_ORDER, TOPIC_GROUPS, topicsByGroup } from '../data/topics';
+---
+<section class="section" id="topics">
+  <div class="container">
+    <p class="eyebrow">أدلة الزيارة</p>
+    <h2 class="section-title">موضوعات وادي نمار</h2>
+    <p class="lead">دليل مواضيع يغطي الموقع والمواعيد والدخول والشلال والمواقف والتجربة والخلفية والخطط، ليكون مرجعاً سريعاً قبل زيارتك.</p>
+    {TOPIC_GROUP_ORDER.map((group) => (
+      <div class="topic-group">
+        <h3>{TOPIC_GROUPS[group].plural}</h3>
+        <div class="topic-grid">
+          {topicsByGroup(group).map((t) => (
+            <a class="topic-card glass" href={`/${t.slug}/`}>
+              <h3>{t.h1}</h3>
+              <p>{t.lead}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

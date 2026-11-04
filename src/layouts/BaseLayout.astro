@@ -26,6 +26,7 @@ const ogImage = Astro.site ? new URL('/images/water-illustration.svg', Astro.sit
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <link rel="canonical" href={canonical.toString()} />}
+    {canonical && !robots.includes('noindex') && <link rel="alternate" hreflang="ar-SA" href={canonical.toString()} />}
     {canonical && <meta property="og:url" content={canonical.toString()} />}
     {ogImage && <meta property="og:image" content={ogImage.toString()} />}
     <meta property="og:image:alt" content="رسم ماء تجريدي أصلي؛ ليس صورة للشلال أو لحالته الحالية" />
@@ -34,7 +35,9 @@ const ogImage = Astro.site ? new URL('/images/water-illustration.svg', Astro.sit
     <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{title}</title>
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {(Array.isArray(jsonLd) ? jsonLd.length > 0 : Object.keys(jsonLd).length > 0) && (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
   </head>
   <body>
     <slot />

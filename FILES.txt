@@ -23,9 +23,15 @@ public/logo.svg
 public/robots.txt
 public/site.js
 scripts/preflight.mjs
+src/components/SiteFooter.astro
+src/components/SiteHeader.astro
+src/components/TopicLinks.astro
+src/components/TopicPage.astro
+src/data/topics.ts
 src/env.d.ts
 src/layouts/BaseLayout.astro
 src/pages/404.astro
+src/pages/[topic].astro
 src/pages/index.astro
 src/styles/global.css
 src/worker.js

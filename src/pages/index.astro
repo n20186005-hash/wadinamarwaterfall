@@ -1,16 +1,29 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import TopicLinks from '../components/TopicLinks.astro';
 
-const title = 'شلال وادي نمار الرياض | الموقع والتحقق من الدخول ومواعيد الزيارة';
-const description = 'دليل مستقل لشلال وادي نمار في الرياض: الموقع الدقيق، وكيفية التحقق من رسوم الدخول وحالة الوصول وتدفق الشلال قبل الزيارة. بيانات خرائط مؤرخة وليست ضماناً للتشغيل.';
+const title = 'شلال وادي نمار بالرياض | الموقع والمواعيد والدخول ودليل الزيارة';
+const description = 'دليل زيارة شلال وادي نمار في الرياض: الموقع على الخريطة، معلومات الدخول، المواعيد، البحيرة، الممشى، المواقف ونصائح زيارة العائلات.';
 
 const placeUrl = Astro.site ? new URL('/', Astro.site).toString() : undefined;
+const mapsUrl = 'https://maps.app.goo.gl/sZTUMNDCSZH3b3VB6';
+const reviewCount = '17,639';
+const lastChecked = '4 نوفمبر 2026';
+const plusCode = 'HMCH+QV Namar, Riyadh, Saudi Arabia';
+const coordinates = {
+  latitude: 24.5719945,
+  longitude: 46.6797341
+};
 
 const attraction = {
+  '@id': placeUrl ? placeUrl + '#attraction' : undefined,
   '@type': 'TouristAttraction',
   name: 'شلال وادي نمار',
   alternateName: 'Wadi Namar Waterfall',
   description,
+  touristType: ['Families', 'Walkers', 'Sightseers'],
   address: {
     '@type': 'PostalAddress',
     streetAddress: '7010 علي بن أبي نصر، حي نمار',
@@ -20,20 +33,21 @@ const attraction = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 24.5719945,
-    longitude: 46.6797341
+    latitude: coordinates.latitude,
+    longitude: coordinates.longitude
   },
-  ...(placeUrl ? { url: placeUrl } : {})
+  ...(placeUrl ? { url: placeUrl } : {}),
+  sameAs: [mapsUrl]
 };
 
 const faqs = [
   {
     "q": "هل دخول شلال وادي نمار مجاني؟",
-    "a": "لم نتحقق من تعرفة رسمية حديثة للدخول أو المواقف. لا يعني ذلك ثبوت وجود رسوم؛ تحقق من اللوحات والجهة المعنية قبل الدفع، وافصل الدخول إلى المنطقة العامة عن المشتريات أو الأنشطة الخاصة."
+    "a": "تشير صفحة السياحة السعودية إلى عدم وجود رسوم لشراء تذكرة دخول، أي أن الدخول إلى المنطقة العامة مجاني بحسب المعلومة المنشورة. لا يشمل ذلك بالضرورة أنشطة تجارية قد تفرض رسوماً، ولم نتحقق من رسوم المواقف."
   },
   {
     "q": "ما أوقات العمل؟ هل المكان مفتوح الآن؟",
-    "a": "عرضت خرائط Google الوصول على مدار الساعة عند المراجعة في 29 أكتوبر 2026. هذه لقطة من طرف ثالث وليست تأكيداً آنياً لفتح كل مدخل أو مرفق، ولا ضماناً لتشغيل الشلال. تحقق من التنبيهات المحلية قبل التحرك."
+    "a": "تشير بيانات خرائط Google التي راجعناها في 4 نوفمبر 2026 إلى أن المكان مدرج كمتاح على مدار الساعة. هذه لقطة من طرف ثالث وليست تأكيداً آنياً لفتح كل مدخل أو مرفق، ولا ضماناً لتشغيل الشلال. تحقق من التنبيهات المحلية قبل التحرك."
   },
   {
     "q": "ما الفرق بين الشلال والوادي والبحيرة؟",
@@ -70,49 +84,73 @@ const faqLd = {
   }))
 };
 
+const webPage = {
+  '@type': 'WebPage',
+  '@id': placeUrl ? placeUrl + '#webpage' : undefined,
+  url: placeUrl,
+  name: title,
+  description,
+  inLanguage: 'ar-SA',
+  isPartOf: { '@type': 'WebSite', name: 'شلال وادي نمار', url: placeUrl },
+  about: { '@type': 'TouristAttraction', '@id': attraction['@id'] }
+};
+
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@graph': [attraction, faqLd]
+  '@graph': [webPage, attraction, faqLd]
 };
 ---
 <BaseLayout {title} {description} {jsonLd}>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="العودة إلى بداية الصفحة"><img src="/logo.svg" alt="شلال وادي نمار" /></a>
-      <nav class="nav" aria-label="التنقل الرئيسي">
-        <a href="#experience">التجربة</a>
-        <a href="#visit">خطط للزيارة</a>
-        <a href="#nearby">حول الوادي</a>
-        <a href="#map" class="nav-cta">الخريطة</a>
-      </nav>
-    </div>
-  </header>
+  <SiteHeader />
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-content">
         <div>
-          <p class="eyebrow">الرياض · حي نمار</p>
-          <h1 id="hero-title">شلال وادي نمار في الرياض</h1>
-          <p class="hero-sub">خطط لزيارة نقطة الشلال في حي نمار مع التمييز بينها وبين الوادي والبحيرة. تحقق من الوصول والتدفق والمرافق في يوم الرحلة؛ هذا الدليل لا يقدم تحديثاً تشغيلياً مباشراً.</p>
+          <p class="eyebrow">الرياض · حي نمار · <span lang="en" dir="ltr">Wadi Namar Waterfall</span></p>
+          <h1 id="hero-title">شلال وادي نمار<br /><span lang="en" dir="ltr">Wadi Namar Waterfall</span></h1>
+          <p class="hero-sub">دليل زيارة الشلال والبحيرة في الرياض: الموقع، المواعيد، الدخول، الممشى، المواقف ونصائح العائلات. تحقق من الوصول والتدفق والمرافق في يوم الرحلة؛ هذا الدليل لا يقدم تحديثاً تشغيلياً مباشراً.</p>
           <div class="hero-actions">
             <a class="btn primary" href="#visit">خطّط زيارتك</a>
-            <a class="btn" href="#map">افتح الخريطة داخل الصفحة</a>
+            <a class="btn" href={mapsUrl} target="_blank" rel="noopener noreferrer">افتح Google Maps</a>
           </div>
         </div>
         <aside class="hero-card glass" aria-label="ملخص سريع">
           <div class="rating"><strong>4.5</strong><span>★</span></div>
-          <small>خرائط Google: 17,592 مراجعة · 29 أكتوبر 2026 · تقييم طرف ثالث وليس مراجعات جمعها الموقع</small>
+          <small>خرائط Google: {reviewCount} مراجعة · تمت المراجعة في {lastChecked} · تقييم طرف ثالث وليس مراجعات جمعها الموقع</small>
           <div class="hero-meta">
-            <div class="meta-row"><span>الدخول</span><b>تحقق من الرسوم</b></div>
-            <div class="meta-row"><span>الطابع</span><b>بحيرة · شلال · ممشى</b></div>
+            <div class="meta-row"><span>التصنيف في الخرائط</span><b lang="en" dir="ltr">National Park</b></div>
+            <div class="meta-row"><span>العنوان</span><b>7010 علي بن أبي نصر</b></div>
             <div class="meta-row"><span>أنسب زيارة</span><b>قرب الغروب والمساء</b></div>
           </div>
         </aside>
       </div>
     </section>
 
-    <div class="fact-strip"><div class="container facts" aria-label="نطاق معلومات الزيارة"><div class="fact"><b>حي نمار</b><span>نقطة الشلال جنوب الرياض</span></div><div class="fact"><b dir="ltr">4.5 / 5</b><span>تقييم Google Maps بتاريخ 29 أكتوبر 2026</span></div><div class="fact"><b>الوادي أوسع من الشلال</b><span>تحقق من كل مدخل وخدمة على حدة</span></div><div class="fact"><b>صورة توضيحية</b><span>لا تضمن حالة التدفق الحالية</span></div></div></div>
+    <div class="fact-strip"><div class="container facts" aria-label="نطاق معلومات الزيارة"><div class="fact"><b>حي نمار</b><span>نقطة الشلال جنوب الرياض</span></div><div class="fact"><b dir="ltr">4.5 / 5</b><span>{reviewCount} مراجعة في خرائط Google</span></div><div class="fact"><b dir="ltr">{plusCode}</b><span>Plus Code للملاحة السريعة</span></div><div class="fact"><b>الوادي أوسع من الشلال</b><span>تحقق من كل مدخل وخدمة على حدة</span></div></div></div>
+
+    <section class="section quick-info" id="quick-info">
+      <div class="container">
+        <p class="eyebrow">معلومات أساسية</p>
+        <h2 class="section-title">العنوان، الخريطة، ونقطة الوصول</h2>
+        <div class="quick-grid">
+          <article class="quick-card glass">
+            <h3>العنوان</h3>
+            <p>7010 علي بن أبي نصر، حي نمار، الرياض 14962، المملكة العربية السعودية</p>
+            <p><a href="/location/">تفاصيل الموقع والوصول →</a></p>
+          </article>
+          <article class="quick-card glass">
+            <h3>Plus Code</h3>
+            <p dir="ltr">{plusCode}</p>
+            <p><a href="/location/">طريقة الوصول →</a></p>
+          </article>
+          <article class="quick-card glass">
+            <h3>روابط سريعة</h3>
+            <p><a href="/opening-hours/">المواعيد</a> · <a href="/entry-fee/">الدخول</a> · <a href="/waterfall/">الشلال</a> · <a href="/parking/">المواقف</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
 
     <section class="section" id="experience">
       <div class="container story-grid">
@@ -134,14 +172,22 @@ const jsonLd = {
       <div class="container">
         <p class="eyebrow">قبل أن تتحرك</p>
         <h2 class="section-title">خطة زيارة بلا مفاجآت</h2>
-        <p class="lead">ابدأ بالتحقق من حالة الوصول في يومك المختار. إدراج الخرائط أو وصف مشروع قديم لا يضمن تشغيل الشلال أو جميع الخدمات.</p>
+        <p class="lead">ابدأ بالتحقق من حالة الوصول في يومك المختار. إدراج الخرائط أو وصف مشروع قديم لا يضمن تشغيل الشلال أو جميع الخدمات، حتى لو كان المكان مدرجاً في الخرائط ضمن فئة National Park.</p>
         <div class="plan-grid">
-          <article class="info-card glass"><div class="info-icon">◌</div><h3>التذاكر والتكلفة</h3><p>لم نتحقق من تعرفة رسمية حديثة. تحقق من اللوحات والجهة المعنية قبل الدفع، وميّز أي نشاط أو شراء خاص عن الدخول إلى المنطقة العامة.</p></article>
-          <article class="info-card glass"><div class="info-icon">P</div><h3>مواقف السيارات</h3><p>اسأل عن المكان المخصص للوقوف وتوفره ورسومه يوم الزيارة. لا تُغلق المداخل أو الطريق، وحدد نقطة واضحة وآمنة للعودة.</p></article>
-          <article class="info-card glass"><div class="info-icon">☾</div><h3>أفضل وقت</h3><p>الأشهر الأبرد هي الأسهل للمشي. في الحر اختر <strong>ما قبل الغروب أو المساء</strong> وتجنب الشمس القوية منتصف النهار.</p></article>
+          <article class="info-card glass"><div class="info-icon">⌂</div><h3>العنوان المؤكد</h3><p>العنوان الظاهر في الخرائط هو <strong>7010 علي بن أبي نصر، حي نمار، الرياض 14962</strong>. استخدمه مع Plus Code للوصول أدق. <a href="/location/">التفاصيل ←</a></p></article>
+          <article class="info-card glass"><div class="info-icon">P</div><h3>مواقف السيارات</h3><p>اسأل عن المكان المخصص للوقوف وتوفره ورسومه يوم الزيارة. لا تُغلق المداخل أو الطريق، وحدد نقطة واضحة وآمنة للعودة. <a href="/parking/">المزيد ←</a></p></article>
+          <article class="info-card glass"><div class="info-icon">☾</div><h3>أفضل وقت</h3><p>الأشهر الأبرد هي الأسهل للمشي. في الحر اختر <strong>ما قبل الغروب أو المساء</strong> وتجنب الشمس القوية منتصف النهار. <a href="/best-time-to-visit/">التفاصيل ←</a></p></article>
           <article class="info-card glass"><div class="info-icon">⌛</div><h3>مدة الزيارة</h3><p>للتصوير والمشي الخفيف خصص نحو <strong>ساعة إلى ساعتين</strong>. للنزهة العائلية والجلوس قرب الماء يمكنك البقاء أطول حسب الطقس.</p></article>
-          <article class="info-card glass"><div class="info-icon">↝</div><h3>ساعات الوصول</h3><p>عرضت خرائط Google الوصول على مدار الساعة بتاريخ 29 أكتوبر 2026؛ هذا وصف من طرف ثالث، لا تأكيد آني لفتح كل مدخل أو تشغيل المرافق أو تدفق الشلال.</p></article>
-          <article class="info-card glass"><div class="info-icon">△</div><h3>السلامة والطقس</h3><p>ابتعد عن الحواف الصخرية ومجرى السيول وقت الأمطار، وراقب الأطفال قرب المياه. خذ ماءً كافياً في الأيام الحارة.</p></article>
+          <article class="info-card glass"><div class="info-icon">↝</div><h3>ساعات الوصول</h3><p>عرضت خرائط Google الوصول على مدار الساعة عند مراجعتنا في <strong>{lastChecked}</strong>؛ هذا وصف من طرف ثالث، لا تأكيد آني لفتح كل مدخل أو تشغيل المرافق أو تدفق الشلال. <a href="/opening-hours/">التفاصيل ←</a></p></article>
+          <article class="info-card glass"><div class="info-icon">△</div><h3>السلامة والطقس</h3><p>ابتعد عن الحواف الصخرية ومجرى السيول وقت الأمطار، وراقب الأطفال قرب المياه. خذ ماءً كافياً في الأيام الحارة. <a href="/lake-safety/">سلامة البحيرة ←</a></p></article>
+        </div>
+        <div class="inline-links">
+          <a href="/opening-hours/">مواعيد الزيارة</a>
+          <a href="/entry-fee/">أسعار الدخول</a>
+          <a href="/location/">الموقع والخريطة</a>
+          <a href="/waterfall/">الشلال</a>
+          <a href="/walking-trail/">الممشى</a>
+          <a href="/parking/">المواقف</a>
         </div>
       </div>
     </section>
@@ -152,10 +198,10 @@ const jsonLd = {
         <h2 class="section-title">خطط للوصول ونقطة العودة</h2>
         <div class="route-grid">
           <div class="route-list">
-            <div class="route-item"><div class="route-no">1</div><div><h3>من وسط الرياض</h3><p>اتجه جنوباً نحو حي نمار ثم استخدم الملاحة إلى «شلال وادي نمار». تجنب تثبيت مسار واحد في ذهنك لأن التحويلات المرورية قد تتغير.</p></div></div>
-            <div class="route-item"><div class="route-no">2</div><div><h3>تطبيقات النقل</h3><p>إذا اخترت سيارة أجرة أو تطبيق نقل، تحقق من توفر الخدمة وحدد نقطة النزول والعودة مع السائق؛ لا نفترض توفر مركبة في كل وقت.</p></div></div>
-            <div class="route-item"><div class="route-no">3</div><div><h3>النقل العام</h3><p>راجع مخطط النقل العام الحالي من نقطة انطلاقك، وتحقق من الجزء الأخير إلى الشلال؛ لم نثبت مساراً مباشراً أو زمناً محدداً لهذه الرحلة.</p></div></div>
-            <div class="route-item"><div class="route-no">4</div><div><h3>العنوان للملاحة</h3><p>7010 علي بن أبي نصر، حي نمار، الرياض 14962. استخدم رابط الخريطة للتحقق من نقطة الوصول.</p></div></div>
+            <div class="route-item"><div class="route-no">1</div><div><h3>من وسط الرياض</h3><p>اتجه جنوباً نحو حي نمار ثم استخدم الملاحة إلى «شلال وادي نمار». تجنب تثبيت مسار واحد في ذهنك لأن التحويلات المرورية قد تتغير. <a href="/from-central-riyadh/">التفاصيل ←</a></p></div></div>
+            <div class="route-item"><div class="route-no">2</div><div><h3>تطبيقات النقل</h3><p>إذا اخترت سيارة أجرة أو تطبيق نقل، تحقق من توفر الخدمة وحدد نقطة النزول والعودة مع السائق؛ لا نفترض توفر مركبة في كل وقت. <a href="/by-taxi/">التفاصيل ←</a></p></div></div>
+            <div class="route-item"><div class="route-no">3</div><div><h3>النقل العام</h3><p>راجع مخطط النقل العام الحالي من نقطة انطلاقك، وتحقق من الجزء الأخير إلى الشلال؛ لم نثبت مساراً مباشراً أو زمناً محدداً لهذه الرحلة. <a href="/public-transport/">التفاصيل ←</a></p></div></div>
+            <div class="route-item"><div class="route-no">4</div><div><h3>العنوان للملاحة</h3><p>7010 علي بن أبي نصر، حي نمار، الرياض 14962. استخدم رابط الخريطة وPlus Code <span dir="ltr">{plusCode}</span> للتحقق من نقطة الوصول.</p></div></div>
           </div>
           <div class="route-note glass">
             <span class="pill">نصيحة نهاية الأسبوع</span>
@@ -173,22 +219,24 @@ const jsonLd = {
         <p class="lead">أفكار عامة للتخطيط وليست فروعاً أو مسارات موثقة. تحقق من مكان كل وجهة وحالة الدخول إليها قبل إضافتها إلى الرحلة.</p>
         <div class="nearby-grid">
           <div class="nearby-group glass">
-            <h3>اختيار الطعام</h3><div class="place-list"><div class="place"><div><b>تحقق من الفرع</b><small>راجع العنوان وساعات العمل قبل التوجه إلى أي مطعم؛ لا توجد توصية بفرع محدد هنا.</small></div></div><div class="place"><div><b>الماء والاحتياجات</b><small>جهز ما تحتاجه للمشي بحسب الطقس بدلاً من افتراض وجود كشك مفتوح.</small></div></div><div class="place"><div><b>الميزانية والغذاء</b><small>اسأل عن القائمة والأسعار والاحتياجات الغذائية قبل الشراء.</small></div></div></div>
+            <h3>اختيار الطعام</h3><div class="place-list"><div class="place"><div><b>تحقق من الفرع</b><small>راجع العنوان وساعات العمل قبل التوجه إلى أي مطعم؛ لا توجد توصية بفرع محدد هنا. <a href="/nearby-restaurants/">المزيد ←</a></small></div></div><div class="place"><div><b>الماء والاحتياجات</b><small>جهز ما تحتاجه للمشي بحسب الطقس بدلاً من افتراض وجود كشك مفتوح.</small></div></div><div class="place"><div><b>الميزانية والغذاء</b><small>اسأل عن القائمة والأسعار والاحتياجات الغذائية قبل الشراء.</small></div></div></div>
           </div>
           <div class="nearby-group glass">
-            <h3>قبل إضافة وجهة أخرى</h3><div class="place-list"><div class="place"><div><b>البحيرة والوادي</b><small>نطاق أوسع من نقطة الشلال؛ تحقق من الجزء المتاح قبل تحديد مسار المشي.</small></div></div><div class="place"><div><b>الإطلالات</b><small>لا تفترض فتح مطل أو أمان الوصول إليه اعتماداً على اسم متداول أو صورة قديمة.</small></div></div><div class="place"><div><b>الدراجات</b><small>تحقق من السماح بالنشاط والمسار المخصص إن وجد؛ لم نثبت مساراً حالياً للدراجات.</small></div></div></div>
+            <h3>قبل إضافة وجهة أخرى</h3><div class="place-list"><div class="place"><div><b>البحيرة والوادي</b><small>نطاق أوسع من نقطة الشلال؛ تحقق من الجزء المتاح قبل تحديد مسار المشي. <a href="/lake/">التفاصيل ←</a></small></div></div><div class="place"><div><b>الإطلالات</b><small>لا تفترض فتح مطل أو أمان الوصول إليه اعتماداً على اسم متداول أو صورة قديمة. <a href="/viewpoint/">التفاصيل ←</a></small></div></div><div class="place"><div><b>الدراجات</b><small>تحقق من السماح بالنشاط والمسار المخصص إن وجد؛ لم نثبت مساراً حالياً للدراجات.</small></div></div></div>
           </div>
         </div>
       </div>
     </section>
+
+    <TopicLinks />
 
     <section class="section" id="map">
       <div class="container">
         <p class="eyebrow">الموقع</p>
         <h2 class="section-title">الشلال على الخريطة</h2>
         <div class="map-wrap">
-          <iframe title="خريطة شلال وادي نمار" src="https://www.google.com/maps?q=24.5719945,46.6797341&amp;output=embed&amp;hl=ar" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <div class="map-caption"><p>حي نمار، جنوب الرياض · استخدم نقطة الشلال نفسها عند طلب سيارة أو مشاركة الموقع.</p><code dir="ltr">24.5719945, 46.6797341</code></div>
+          <iframe title="خريطة شلال وادي نمار" src={`https://www.google.com/maps?q=${coordinates.latitude},${coordinates.longitude}&output=embed&hl=ar`} loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="map-caption"><p>حي نمار، جنوب الرياض · استخدم نقطة الشلال نفسها عند طلب سيارة أو مشاركة الموقع. <a href={mapsUrl} target="_blank" rel="noopener noreferrer">فتح الخريطة الكاملة</a></p><code dir="ltr">{coordinates.latitude}, {coordinates.longitude}</code></div>
         </div>
       </div>
     </section>
@@ -207,47 +255,8 @@ const jsonLd = {
         </div>
       </div>
     </section>
-    <section class="section" id="sources"><div class="container"><h2 class="section-title">المصادر ونطاق التحقق</h2><p>راجعت بيانات نقطة الشلال في خرائط Google في 29 أكتوبر 2026: تقييم 4.5 من 17,592 مراجعة، ووصول مدرج على مدار الساعة. هذه لقطة طرف ثالث وليست مراجعات خاصة بالموقع أو تقرير فتح آني.</p><p>تسرد <a href="https://www.rcrc.gov.sa/projects/">الهيئة الملكية لمدينة الرياض</a> مشروعي التأهيل البيئي لوادي نمار ومتنزه مطلات بحيرة نمار. وجود وصف مشروع لا يثبت حالة تشغيل مرافقه اليوم. صفحة <a href="https://www.visitsaudi.com/ar/riyadh/attractions/wadi-namar">السياحة السعودية</a> مرجع تعريفي، ولم نثبت من محتواها المتاح حالياً تعرفة دخول أو جدول تشغيل حديثاً.</p><p><a href="https://maps.app.goo.gl/sZTUMNDCSZH3b3VB6">نقطة شلال وادي نمار على الخريطة</a> · <a href="/images/water-illustration.svg">الرسم الأصلي</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>. الرسم تجريدي وليس صورة أو توثيقاً لحالة الشلال.</p></div></section>
+    <section class="section" id="sources"><div class="container"><h2 class="section-title">المصادر ونطاق التحقق</h2><p>راجعت بيانات نقطة الشلال في خرائط Google في {lastChecked}: تقييم 4.5 من {reviewCount} مراجعة، والتصنيف الظاهر National Park، والعنوان <span dir="ltr">7010 Ali bin Abi Nasr, Namar, Riyadh 14962</span> مع Plus Code <span dir="ltr">{plusCode}</span>. هذه بيانات طرف ثالث وليست مراجعات خاصة بالموقع أو تقرير فتح آني.</p><p>تسرد <a href="https://www.rcrc.gov.sa/projects/">الهيئة الملكية لمدينة الرياض</a> مشروعي التأهيل البيئي لوادي نمار ومتنزه مطلات بحيرة نمار. وجود وصف مشروع لا يثبت حالة تشغيل مرافقه اليوم. صفحة <a href="https://www.visitsaudi.com/ar/riyadh/attractions/wadi-namar">السياحة السعودية</a> مرجع تعريفي للمكان وتذكر عدم وجود رسوم دخول.</p><p><a href={mapsUrl}>نقطة شلال وادي نمار على الخريطة</a> · <a href="/images/water-illustration.svg">الرسم الأصلي</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>. الرسم تجريدي وليس صورة أو توثيقاً لحالة الشلال.</p></div></section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-top">
-        <img class="footer-logo" src="/logo.svg" alt="شلال وادي نمار" />
-        <div class="footer-links" aria-label="روابط الخصوصية">
-          <button class="link-button" data-dialog-open="privacy-dialog">الخصوصية</button>
-          <button class="link-button" data-dialog-open="terms-dialog">شروط الاستخدام</button>
-          <button class="link-button" data-dialog-open="cookies-dialog">ملفات الارتباط</button>
-          <button class="link-button" data-consent="settings">إعدادات التحليلات</button>
-        </div>
-      </div>
-      <p id="consent-feedback" role="status"></p><p class="disclaimer">هذا دليل مستقل وغير ربحي للمعلومات السياحية والتثقيف العام، ولا يتبع أمانة منطقة الرياض أو الهيئة السعودية للسياحة أو أي جهة حكومية أو مشغل للموقع.</p>
-    </div>
-  </footer>
-
-  <div class="consent glass" id="analytics-consent" role="dialog" aria-live="polite" aria-label="إذن التحليلات">
-    <h2>تحليلات اختيارية</h2>
-    <p>نستخدم Google Analytics 4 فقط إذا وافقت، ويمكنك تغيير اختيارك من أسفل الصفحة. يخص هذا الاختيار GA وحده ولا يتحكم بقياس أداء Cloudflare المستقل؛ التفاصيل في الخصوصية.</p>
-    <p id="consent-status" role="status"></p><div class="consent-actions"><button class="accept" data-consent="accept">موافق</button><button data-consent="reject">رفض</button><button data-consent="close">إغلاق</button></div>
-  </div>
-
-  <dialog id="privacy-dialog">
-    <div class="dialog-inner">
-      <div class="dialog-head"><h2>الخصوصية</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
-      <p>لا يتطلب الموقع حساباً أو تسجيل دخول ولا يجمع بيانات شخصية عبر نماذج. يتم تفعيل Google Analytics 4 فقط بعد موافقتك. قد ترسل خرائط Google بيانات تقنية إلى مزودها عند تحميلها. الرسم التوضيحي يُحمّل من هذا الموقع.</p>
-      <p>تستضيف Cloudflare هذا الموقع، وقد تضيف أداة مستقلة لقياس الأداء مثل <span dir="ltr">beacon.min.js</span> وترسل بيانات تقنية عن تحميل الصفحة وأزمنة الاتصال إلى Cloudflare. هذه الأداة ليست Google Analytics، ولا تتحكم بها أزرار الموافقة أو الرفض الخاصة بـ GA في هذه الصفحة؛ رفض GA لا يعني إيقاف قياس الأداء لدى مزود الاستضافة. راجع <a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/" target="_blank" rel="noopener noreferrer">شرح Cloudflare لجمع بيانات الأداء</a>.</p>
-    </div>
-  </dialog>
-  <dialog id="terms-dialog">
-    <div class="dialog-inner">
-      <div class="dialog-head"><h2>شروط الاستخدام</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
-      <p>المعلومات هنا للإرشاد العام وليست بياناً رسمياً. قد تتغير ساعات الوصول أو المرافق أو حالة الشلال أو الطرق. تحقّق من المصادر الرسمية والظروف المحلية قبل الزيارة، واتبع تعليمات السلامة في الموقع.</p>
-    </div>
-  </dialog>
-  <dialog id="cookies-dialog">
-    <div class="dialog-inner">
-      <div class="dialog-head"><h2>ملفات الارتباط والتحليلات</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
-      <p>يحاول الموقع حفظ اختيارك محلياً ويتحقق من النتيجة؛ قد يفشل التخزين وتُعرض حينئذ حدود الحفظ. عند الموافقة يتم تحميل Google Analytics 4 بالمعرّف المخصص للموقع. عند الرفض يُمنع التحميل الجديد وتُرسل حالة رفض إلى المكتبة إن سبق تحميلها. قد يبقى السكربت في الصفحة بعد سحب الموافقة. تُعرض نتيجة الحفظ وحدودها عند تعذر التخزين.</p>
-    </div>
-  </dialog>
+  <SiteFooter />
 </BaseLayout>

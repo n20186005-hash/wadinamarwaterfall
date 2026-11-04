@@ -1,0 +1,44 @@
+---
+// التذييل يتضمن إخلاء المسؤولية وحوارات الخصوصية وملفات الارتباط وموافقة التحليلات.
+// سكربت site.js يُحمَّل من BaseLayout، لذا لا يُدرج هنا.
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <img class="footer-logo" src="/logo.svg" alt="شلال وادي نمار" />
+      <div class="footer-links" aria-label="روابط الخصوصية">
+        <button class="link-button" data-dialog-open="privacy-dialog">الخصوصية</button>
+        <button class="link-button" data-dialog-open="terms-dialog">شروط الاستخدام</button>
+        <button class="link-button" data-dialog-open="cookies-dialog">ملفات الارتباط</button>
+        <button class="link-button" data-consent="settings">إعدادات التحليلات</button>
+      </div>
+    </div>
+    <p id="consent-feedback" role="status"></p><p class="disclaimer">هذا دليل مستقل وغير ربحي للمعلومات السياحية والتثقيف العام، ولا يتبع أمانة منطقة الرياض أو الهيئة السعودية للسياحة أو أي جهة حكومية أو مشغل للموقع.</p>
+  </div>
+</footer>
+
+<div class="consent glass" id="analytics-consent" role="dialog" aria-live="polite" aria-label="إذن التحليلات">
+  <h2>تحليلات اختيارية</h2>
+  <p>نستخدم Google Analytics 4 فقط إذا وافقت، ويمكنك تغيير اختيارك من أسفل الصفحة. يخص هذا الاختيار GA وحده ولا يتحكم بقياس أداء Cloudflare المستقل؛ التفاصيل في الخصوصية.</p>
+  <p id="consent-status" role="status"></p><div class="consent-actions"><button class="accept" data-consent="accept">موافق</button><button data-consent="reject">رفض</button><button data-consent="close">إغلاق</button></div>
+</div>
+
+<dialog id="privacy-dialog">
+  <div class="dialog-inner">
+    <div class="dialog-head"><h2>الخصوصية</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
+    <p>لا يتطلب الموقع حساباً أو تسجيل دخول ولا يجمع بيانات شخصية عبر نماذج. يتم تفعيل Google Analytics 4 فقط بعد موافقتك. قد ترسل خرائط Google بيانات تقنية إلى مزودها عند تحميلها. الرسم التوضيحي يُحمّل من هذا الموقع.</p>
+    <p>تستضيف Cloudflare هذا الموقع، وقد تضيف أداة مستقلة لقياس الأداء مثل <span dir="ltr">beacon.min.js</span> وترسل بيانات تقنية عن تحميل الصفحة وأزمنة الاتصال إلى Cloudflare. هذه الأداة ليست Google Analytics، ولا تتحكم بها أزرار الموافقة أو الرفض الخاصة بـ GA في هذه الصفحة؛ رفض GA لا يعني إيقاف قياس الأداء لدى مزود الاستضافة. راجع <a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/" target="_blank" rel="noopener noreferrer">شرح Cloudflare لجمع بيانات الأداء</a>.</p>
+  </div>
+</dialog>
+<dialog id="terms-dialog">
+  <div class="dialog-inner">
+    <div class="dialog-head"><h2>شروط الاستخدام</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
+    <p>المعلومات هنا للإرشاد العام وليست بياناً رسمياً. قد تتغير ساعات الوصول أو المرافق أو حالة الشلال أو الطرق. تحقّق من المصادر الرسمية والظروف المحلية قبل الزيارة، واتبع تعليمات السلامة في الموقع.</p>
+  </div>
+</dialog>
+<dialog id="cookies-dialog">
+  <div class="dialog-inner">
+    <div class="dialog-head"><h2>ملفات الارتباط والتحليلات</h2><button class="dialog-close" data-dialog-close aria-label="إغلاق">×</button></div>
+    <p>يحاول الموقع حفظ اختيارك محلياً ويتحقق من النتيجة؛ قد يفشل التخزين وتُعرض حينئذ حدود الحفظ. عند الموافقة يتم تحميل Google Analytics 4 بالمعرّف المخصص للموقع. عند الرفض يُمنع التحميل الجديد وتُرسل حالة رفض إلى المكتبة إن سبق تحميلها. قد يبقى السكربت في الصفحة بعد سحب الموافقة. تُعرض نتيجة الحفظ وحدودها عند تعذر التخزين.</p>
+  </div>
+</dialog>

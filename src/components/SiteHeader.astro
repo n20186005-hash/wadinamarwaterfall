@@ -1,0 +1,18 @@
+---
+interface Props {
+  homeHref?: string;
+}
+const { homeHref = '/' } = Astro.props;
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href={homeHref} aria-label="العودة إلى بداية الصفحة"><img src="/logo.svg" alt="شلال وادي نمار" /></a>
+    <nav class="nav" aria-label="التنقل الرئيسي">
+      <a href="/#experience">التجربة</a>
+      <a href="/#visit">خطط للزيارة</a>
+      <a href="/#topics">الأدلة</a>
+      <a href="/#nearby">حول الوادي</a>
+      <a href="/#map" class="nav-cta">الخريطة</a>
+    </nav>
+  </div>
+</header>
