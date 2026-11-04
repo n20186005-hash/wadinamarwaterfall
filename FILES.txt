@@ -18,6 +18,9 @@ public/favicon-16.png
 public/favicon-32.png
 public/favicon.svg
 public/images/README.txt
+public/images/wadi-namar-evening.jpg
+public/images/wadi-namar-lake-view.jpg
+public/images/wadi-namar-waterfall-hero.jpg
 public/images/water-illustration.svg
 public/logo.svg
 public/robots.txt
